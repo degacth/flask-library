@@ -14,3 +14,28 @@ $ python manage.py run
 ```sh
 $ python tests.py
 ```
+
+## URLs
+### Book API
+```
+/api/book [GET, POST, PUT, DELETE]
+```
+
+### Author API
+```
+/api/author [GET, POST, PUT, DELETE]
+```
+
+
+### Library API
+```
+/library/ [GET]
+```
+
+to change pages you must add query parameter "page":
+/library/?page=3
+
+### Statistics API
+```
+/statistics/ [GET]
+```
