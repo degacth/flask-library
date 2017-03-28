@@ -11,7 +11,6 @@ from application import app, db, Author, Book, set_statistics
 class BaseTestCase(TestCase):
     def create_app(self):
         app.config['TESTING'] = True
-        self.app = app.test_client()
         return app
 
     def setUp(self):
