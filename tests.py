@@ -1,11 +1,12 @@
 import os
 import unittest
+
 os.environ['SQLALCHEMY_USE_DB'] = 'sqlite:///:memory:'
 
 from json import dumps
 from flask_testing import TestCase
 from fixtures import generate
-from application import app, db, Author, Book, set_statistics
+from application import app, db, Author, Book
 
 
 class BaseTestCase(TestCase):
@@ -19,7 +20,6 @@ class BaseTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        set_statistics()
 
 
 class ApiTestCase(BaseTestCase):
