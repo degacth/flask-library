@@ -2,6 +2,7 @@ import os
 from json import dumps
 
 from flask import Flask
+from flask import Response
 from flask_restless import APIManager
 from flask_sqlalchemy import SQLAlchemy, models_committed
 
@@ -54,7 +55,7 @@ def on_models_commited(sender, changes):
 
 @app.route('/statistics/')
 def statistics():
-    return dumps(_library_statistics)
+    return Response(response=dumps(_library_statistics), mimetype='application/json')
 
 
 def set_statistics(books=0, authors=0):
