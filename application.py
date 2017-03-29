@@ -41,7 +41,7 @@ _library_statistics = {
 
 
 @models_committed.connect
-def on_models_commited(__, changes):
+def on_models_commited(sender, changes):
     model, change = changes[0]
     if change not in ('insert', 'delete'):
         return
