@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from application import app, db
 from fixtures import generate
 from flask_script import Manager

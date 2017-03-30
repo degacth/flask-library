@@ -1,4 +1,5 @@
 blinker==1.4
+celery==4.0.2
 click==6.7
 Faker==0.7.3
 fixture==1.5.9

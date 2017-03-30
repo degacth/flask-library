@@ -6,7 +6,7 @@ os.environ['SQLALCHEMY_USE_DB'] = 'sqlite:///:memory:'
 from json import dumps
 from flask_testing import TestCase
 from fixtures import generate
-from application import app, db, Author, Book
+from application import app, db, Author, Book, update_statistics
 
 
 class BaseTestCase(TestCase):

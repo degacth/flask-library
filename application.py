@@ -16,6 +16,8 @@ SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_USE_DB') or 'sqlite:///%s' 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 CELERY_BROKER_URL = 'redis://localhost:6379',
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ALWAYS_EAGER = True
+PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -32,7 +34,7 @@ def make_celery(app):
         abstract = True
 
         def __call__(self, *args, **kwargs):
-            with app.app_context():
+            # with app.app_context():
                 return TaskBase.__call__(self, *args, **kwargs)
 
     celery.Task = ContextTask
@@ -66,28 +68,17 @@ library_statistics = {
 
 
 @celery.task
-def update_statictics():
-    library_statistics = {
+def update_statistics():
+    return {
         'book_count': Book.query.count(),
         'author_count': Author.query.count(),
     }
 
-
-event.listen(Author, 'after_insert', lambda _1, _2, _3: library_statistics.update({
-    'author_count': Author.query.count(),
-}))
-
-event.listen(Author, 'after_delete', lambda _1, _2, _3: library_statistics.update({
-    'author_count': Author.query.count(),
-}))
-
-event.listen(Book, 'after_insert', lambda _1, _2, _3: library_statistics.update({
-    'book_count': Book.query.count(),
-}))
-
-event.listen(Book, 'after_delete', lambda _1, _2, _3: library_statistics.update({
-    'book_count': Book.query.count(),
-}))
+f = lambda *args: library_statistics.update(update_statistics.delay().wait())
+event.listen(Author, 'after_delete', f)
+event.listen(Author, 'after_insert', f)
+event.listen(Book, 'after_delete', f)
+event.listen(Book, 'after_insert', f)
 
 
 @app.route('/statistics/')
@@ -96,3 +87,4 @@ def statistics():
 
 
 db.create_all()
+library_statistics.update(update_statistics.delay().wait())
