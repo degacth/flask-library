@@ -1,6 +1,8 @@
 import os
 import unittest
 
+import sys
+
 os.environ['SQLALCHEMY_USE_DB'] = 'sqlite:///:memory:'
 
 from json import dumps
@@ -139,5 +141,8 @@ class StatisticsTestCase(BaseTestCase):
         })
 
 
-if __name__ == '__main__':
-    unittest.main()
+def run():
+    tests = unittest.TestLoader().discover('.')
+    sys.exit(
+        int(not unittest.TextTestRunner(verbosity=2).run(tests).wasSuccessful())
+    )
