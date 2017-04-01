@@ -5,10 +5,10 @@ import sys
 
 from flask_script import Manager, Command
 
-from application import create_app, db
+from application import app, db
 from application.library.fixtures import generate
 
-manager = Manager(create_app)
+manager = Manager(app)
 
 
 class CeleryWorker(Command):
@@ -21,7 +21,7 @@ class CeleryWorker(Command):
         sys.exit(ret)
 
 
-manager.add_command("celery", CeleryWorker())
+manager.add_command('celery', CeleryWorker())
 
 
 @manager.command

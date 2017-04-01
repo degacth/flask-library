@@ -1,17 +1,17 @@
 import sys
 import unittest
-from functools import partial
 from json import dumps
 
 from flask_testing import TestCase
 
-from application import db, create_app
+from application import db, app
 from application.library.fixtures import generate
 from application.library.models import Author, Book
 
 
 class BaseTestCase(TestCase):
-    create_app = partial(create_app, 'test')
+    def create_app(self):
+        return app
 
     def setUp(self):
         db.create_all()

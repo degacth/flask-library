@@ -7,7 +7,8 @@ class Config:
         os.path.join(BASE_DIR, 'library.db')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_BROKER_URL = 'redis://'
+    CELERY_RESULT_BACKEND = 'redis://'
 
 
 class DevConfig(Config):

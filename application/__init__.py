@@ -7,30 +7,44 @@ from flask_sqlalchemy import SQLAlchemy
 
 import config as cfg
 
-db = SQLAlchemy()
-celery = Celery(__name__,
-                broker=os.environ.get('CELERY_BROKER_URL', 'redis://'),
-                backend=os.environ.get('CELERY_BROKER_URL', 'redis://')
-                )
+app = Flask(__name__)
+config_name = os.environ.get('FLASK_CONFIG', 'dev')
+config = cfg.configurations[config_name]
+app.config.from_object(config)
+db = SQLAlchemy(app)
 
 
-def create_app(config_name: str = None) -> Flask:
-    if config_name is None:
-        config_name = os.environ.get('FLASK_CONFIG', 'dev')
+def make_celery(_app: Flask) -> Celery:
+    _celery = Celery(_app.import_name,
+                     backend=_app.config['CELERY_RESULT_BACKEND'],
+                     broker=_app.config['CELERY_BROKER_URL']
+                     )
+    _celery.conf.update(_app.config)
+    TaskBase = _celery.Task
 
-    app = Flask(__name__)
-    config = cfg.configurations[config_name]
-    app.config.from_object(config)
-    db.init_app(app)
-    celery.conf.update(app.config)
+    class ContextTask(TaskBase):
+        abstract = True
 
-    with app.app_context():
-        api_manager = APIManager(app, flask_sqlalchemy_db=db)
+        def __call__(self, *args, **kwargs):
+            if app.config['TESTING']:
+                return TaskBase.__call__(self, *args, **kwargs)
+            else:
+                with app.app_context():
+                    return TaskBase.__call__(self, *args, **kwargs)
 
-        from .library.api import init_api
-        init_api(api_manager)
+    _celery.Task = ContextTask
+    return _celery
 
-        from .statistics.api import statistics_bp
-        app.register_blueprint(statistics_bp, url_prefix='/statistics')
 
-    return app
+celery = make_celery(app)
+
+with app.app_context():
+    api_manager = APIManager(app, flask_sqlalchemy_db=db)
+
+    from .library.api import init_api
+
+    init_api(api_manager)
+
+    from .statistics.api import statistics_bp
+
+    app.register_blueprint(statistics_bp, url_prefix='/statistics')
