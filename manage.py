@@ -3,11 +3,23 @@ import os
 import subprocess
 import sys
 
-
 from application import create_app
-from flask_script import Manager
+from flask_script import Manager, Command
 
 manager = Manager(create_app)
+
+
+class CeleryWorker(Command):
+    name = 'celery'
+    capture_all_args = True
+
+    def run(self, argv):
+        ret = subprocess.call(
+            ['celery', 'worker', '-A', 'application.celery'] + argv)
+        sys.exit(ret)
+
+
+manager.add_command("celery", CeleryWorker())
 
 
 @manager.command

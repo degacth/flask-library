@@ -29,4 +29,7 @@ def create_app(config_name=None):
         from .library.api import init_api
         init_api(api_manager)
 
+        from .statistics.api import statistics_bp
+        app.register_blueprint(statistics_bp, url_prefix='/statistics')
+
     return app

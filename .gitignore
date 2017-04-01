@@ -1,5 +1,6 @@
 .idea
 __pycache__
 *.db
+application/statistics/statistics.info
 *.swp
 
