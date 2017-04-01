@@ -1,18 +1,29 @@
 # flask-library
 
 ## How to install
+
+Install redis and sqlite (on Debian / Ubuntu)
+```sh
+$ sudo apt install redis-server sqlite3
+```
+
 You must have to activate Python3 env before run commands:
 ```sh
 $ git clone https://github.com/degacth/flask-library
 $ cd flask-library
 $ pip install -r requirements.txt
-$ python manage.py generate
-$ python manage.py run
+$ python manage.py initdb
+$ python manage.py runserver
+```
+
+Also in other terminal run:
+```sh
+$ python manage.py celery
 ```
 
 ## Run tests
 ```sh
-$ python tests.py
+$ python manage.py test
 ```
 
 ## URLs
