@@ -2,7 +2,6 @@ import os
 
 from celery import Celery
 from flask import Flask
-from flask_restless import APIManager
 from flask_sqlalchemy import SQLAlchemy
 
 import config as cfg
@@ -38,13 +37,10 @@ def make_celery(_app: Flask) -> Celery:
 
 celery = make_celery(app)
 
-with app.app_context():
-    api_manager = APIManager(app, flask_sqlalchemy_db=db)
+from .library.api import author_bp, book_bp, library_bp
+from .statistics.api import statistics_bp
 
-    from .library.api import init_api
-
-    init_api(api_manager)
-
-    from .statistics.api import statistics_bp
-
-    app.register_blueprint(statistics_bp, url_prefix='/statistics')
+app.register_blueprint(author_bp)
+app.register_blueprint(book_bp)
+app.register_blueprint(library_bp)
+app.register_blueprint(statistics_bp, url_prefix='/statistics')
