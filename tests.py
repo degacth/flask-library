@@ -1,12 +1,13 @@
-import unittest
 import sys
+import unittest
 from functools import partial
 from json import dumps
 
 from flask_testing import TestCase
+
 from application import db, create_app
+from application.library.fixtures import generate
 from application.library.models import Author, Book
-from fixtures import generate
 
 
 class BaseTestCase(TestCase):
@@ -135,6 +136,7 @@ class StatisticsTestCase(BaseTestCase):
             'book_count': 59,
             'author_count': 21,
         })
+
 
 def run():
     tests = unittest.TestLoader().discover('.')

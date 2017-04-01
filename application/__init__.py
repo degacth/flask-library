@@ -10,10 +10,11 @@ import config as cfg
 db = SQLAlchemy()
 celery = Celery(__name__,
                 broker=os.environ.get('CELERY_BROKER_URL', 'redis://'),
-                backend=os.environ.get('CELERY_BROKER_URL', 'redis://'))
+                backend=os.environ.get('CELERY_BROKER_URL', 'redis://')
+                )
 
 
-def create_app(config_name=None):
+def create_app(config_name: str = None) -> Flask:
     if config_name is None:
         config_name = os.environ.get('FLASK_CONFIG', 'dev')
 
