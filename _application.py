@@ -44,18 +44,6 @@ def make_celery(app):
 celery = make_celery(app)
 
 
-class Author(db.Model):
-    author_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200))
-
-
-class Book(db.Model):
-    book_id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    author_id = db.Column(db.Integer, db.ForeignKey(Author.author_id))
-    author = db.relationship(Author)
-
-
 api_manager = APIManager(app, flask_sqlalchemy_db=db)
 api_manager.create_api(Author, methods=['GET', 'POST', 'PUT', 'DELETE'])
 api_manager.create_api(Book, methods=['GET', 'POST', 'PUT', 'DELETE'])

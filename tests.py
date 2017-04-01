@@ -1,20 +1,16 @@
-import os
 import unittest
-
 import sys
-
-os.environ['SQLALCHEMY_USE_DB'] = 'sqlite:///:memory:'
-
+from functools import partial
 from json import dumps
+
 from flask_testing import TestCase
+from application import db, create_app
+from application.library.models import Author, Book
 from fixtures import generate
-from application import app, db, Author, Book, update_statistics
 
 
 class BaseTestCase(TestCase):
-    def create_app(self):
-        app.config['TESTING'] = True
-        return app
+    create_app = partial(create_app, 'test')
 
     def setUp(self):
         db.create_all()
@@ -139,7 +135,6 @@ class StatisticsTestCase(BaseTestCase):
             'book_count': 59,
             'author_count': 21,
         })
-
 
 def run():
     tests = unittest.TestLoader().discover('.')

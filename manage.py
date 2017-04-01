@@ -1,28 +1,22 @@
 #!/usr/bin/env python
+import os
 import subprocess
-
 import sys
 
-from application import app, db
-from fixtures import generate
+
+from application import create_app
 from flask_script import Manager
 
-manager = Manager(app)
-
-
-@manager.command
-def run():
-    app.run()
+manager = Manager(create_app)
 
 
 @manager.command
 def test():
-    """Runs unit tests."""
     tests = subprocess.call(['python', '-c', 'import tests; tests.run()'])
     sys.exit(tests)
 
 
-manager.command(generate)
-
 if __name__ == '__main__':
+    if sys.argv[1] in ('test',):
+        os.environ['FLASK_CONFIG'] = 'test'
     manager.run()
