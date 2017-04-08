@@ -115,7 +115,7 @@ class LibraryTestCase(BaseTestCase):
 class StatisticsTestCase(BaseTestCase):
     def test_statictics_api(self):
         generate(20, 60)
-        res = self.client.get('/statistics/')
+        res = self.client.get('/api/statistics/')
         self.assert200(res)
         self.assertEqual(res.json, {
             'book_count': 60,
@@ -130,7 +130,7 @@ class StatisticsTestCase(BaseTestCase):
         # Remove book
         self.client.delete('/api/book/%s' % Book.query.first().book_id)
 
-        res = self.client.get('/statistics/')
+        res = self.client.get('/api/statistics/')
         self.assert200(res)
         self.assertEqual(res.json, {
             'book_count': 59,

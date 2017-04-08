@@ -43,4 +43,4 @@ from .statistics.api import statistics_bp
 app.register_blueprint(author_bp)
 app.register_blueprint(book_bp)
 app.register_blueprint(library_bp)
-app.register_blueprint(statistics_bp, url_prefix='/statistics')
+app.register_blueprint(statistics_bp, url_prefix='/api/statistics')
