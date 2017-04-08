@@ -12,6 +12,9 @@ You must have to activate Python3 env before run commands:
 $ git clone https://github.com/degacth/flask-library
 $ cd flask-library
 $ pip install -r requirements.txt
+$ npm i
+$ npm run build
+$ ln -s ../node_modules/ ./src/node_modules
 $ python manage.py initdb
 $ python manage.py runserver
 ```
@@ -24,6 +27,7 @@ $ python manage.py celery
 ## Run tests
 ```sh
 $ python manage.py test
+$ python manage.py e2e
 ```
 
 ## URLs
