@@ -39,8 +39,10 @@ celery = make_celery(app)
 
 from .library.api import author_bp, book_bp, library_bp
 from .statistics.api import statistics_bp
+from .main.views import main_bp
 
 app.register_blueprint(author_bp)
 app.register_blueprint(book_bp)
 app.register_blueprint(library_bp)
 app.register_blueprint(statistics_bp, url_prefix='/api/statistics')
+app.register_blueprint(main_bp)

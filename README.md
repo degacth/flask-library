@@ -48,5 +48,5 @@ to change pages you must add query parameter "page":
 
 ### Statistics API
 ```
-/statistics/ [GET]
+/api/statistics/ [GET]
 ```
