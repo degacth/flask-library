@@ -34,6 +34,10 @@ class BaseLiveTestCase(LiveServerTestCase):
 
 
 class MainTestCase(BaseLiveTestCase):
-    def test_main_page(self):
+    def test_urls_on_same_index(self):
         res = requests.get(self.get_server_url())
         self.assertEqual(res.status_code, 200)
+
+        res = requests.get(self.get_server_url() + '/some/other/page')
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue('<my-app>' in res.text)

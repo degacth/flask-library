@@ -8,5 +8,6 @@ main_bp = Blueprint('main', __name__, template_folder=SRC_DIR, static_folder=SRC
 
 
 @main_bp.route('/')
-def main():
+@main_bp.route('/<path:page>')
+def main(page=None):
     return render_template('index.html')
