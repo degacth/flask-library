@@ -40,4 +40,4 @@ class MainTestCase(BaseLiveTestCase):
 
         res = requests.get(self.get_server_url() + '/some/other/page')
         self.assertEqual(res.status_code, 200)
-        self.assertTrue('<my-app>' in res.text)
+        self.assertTrue('<app>' in res.text)

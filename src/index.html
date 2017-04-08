@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Angular QuickStart</title>
     <base href="/src/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="node_modules/uikit/dist/css/uikit.almost-flat.min.css">
 
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -15,11 +15,28 @@
 
     <script src="systemjs.config.js"></script>
     <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
+        System.import('main.js').catch(function (err) {
+            console.error(err);
+        });
     </script>
-  </head>
+</head>
 
-  <body>
-    <my-app>Loading AppComponent content here ...</my-app>
-  </body>
+<body>
+
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+    <nav class="uk-navbar uk-margin-large-bottom">
+        <a class="uk-navbar-brand uk-hidden-small" href="/">Flask Library</a>
+        <ul class="uk-navbar-nav uk-hidden-small">
+            <li>
+                <a href="/authors">Authors</a>
+            </li>
+            <li>
+                <a href="/books">Books</a>
+            </li>
+        </ul>
+    </nav>
+
+    <app>Loading component ...</app>
+</div>
+</body>
 </html>
