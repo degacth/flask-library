@@ -31,12 +31,18 @@ def test():
 
 
 @manager.command
+def e2e():
+    tests = subprocess.call(['python', '-c', 'import tests; tests.run("e2e*.py")'])
+    sys.exit(tests)
+
+
+@manager.command
 def initdb():
     db.create_all()
     generate()
 
 
 if __name__ == '__main__':
-    if sys.argv[1] in ('test',):
+    if sys.argv[1] in ('test', 'e2e'):
         os.environ['FLASK_CONFIG'] = 'test'
     manager.run()
