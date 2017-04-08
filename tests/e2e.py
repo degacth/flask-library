@@ -24,12 +24,12 @@ class BaseLiveTestCase(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        LiveServerTestCase.setUpClass()
-        cls.driver = webdriver.Chrome(os.path.join(Config.BASE_DIR, 'tests', 'chromedriver'))
+        drv = webdriver.Chrome(os.path.join(Config.BASE_DIR, 'tests', 'chromedriver'))
+        drv.implicitly_wait(3)
+        cls.driver = drv
 
     @classmethod
     def tearDownClass(cls):
-        LiveServerTestCase.tearDownClass()
         cls.driver.quit()
 
 
@@ -41,3 +41,8 @@ class MainTestCase(BaseLiveTestCase):
         res = requests.get(self.get_server_url() + '/some/other/page')
         self.assertEqual(res.status_code, 200)
         self.assertTrue('<app>' in res.text)
+
+    def test_home_page(self):
+        drv = self.driver
+        drv.get(self.get_server_url())
+        self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
