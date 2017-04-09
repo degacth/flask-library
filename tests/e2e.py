@@ -46,3 +46,4 @@ class MainTestCase(BaseLiveTestCase):
         drv = self.driver
         drv.get(self.get_server_url())
         self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
+        self.assertEqual(drv.current_url, self.get_server_url() + '/home')
