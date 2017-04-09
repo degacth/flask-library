@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'app',
-    template: '<router-outlet></router-outlet>',
+    templateUrl: 'app.component.html',
+    moduleId: module.id,
 })
 export class AppComponent {}
