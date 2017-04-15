@@ -10,8 +10,8 @@
                     sint sit ullam voluptatibus.</p>
 
                 <div *ngIf="statistics">
-                    <button class="uk-button uk-button-primary">Authors count - {{ statistics.author_count }}</button>
-                    <button class="uk-button uk-button-primary">Books count - {{ statistics.book_count }}</button>
+                    <a [routerLink]="['/author']" class="uk-button uk-button-primary">Authors count - {{ statistics.author_count }}</a>
+                    <a [routerLink]="['/book']" class="uk-button uk-button-primary">Books count - {{ statistics.book_count }}</a>
                 </div>
             </div>
         </div>
