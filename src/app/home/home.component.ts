@@ -11,5 +11,7 @@ export class HomeComponent {
     constructor(private statisticsRep: StatisticsRepository) {
     }
 
-    get statistics(): Statistics { return this.statisticsRep.getStatistics() }
+    get statistics(): Statistics {
+        return this.statisticsRep.getStatistics()
+    }
 }
