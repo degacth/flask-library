@@ -3,6 +3,6 @@ import {Component} from "@angular/core";
 @Component({
     selector: 'author',
     moduleId: module.id,
-    template: 'Hello World',
+    templateUrl: 'author.component.html'
 })
 export class AuthorComponent {}

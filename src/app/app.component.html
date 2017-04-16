@@ -3,10 +3,10 @@
         <a class="uk-navbar-brand uk-hidden-small" [routerLink]="['home']">Flask Library</a>
         <ul class="uk-navbar-nav uk-hidden-small">
             <li>
-                <a href="/authors">Authors</a>
+                <a [routerLink]="['/author']">Authors</a>
             </li>
             <li>
-                <a href="/books">Books</a>
+                <a [routerLink]="['/book']">Books</a>
             </li>
         </ul>
     </nav>
