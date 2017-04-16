@@ -1,22 +1,28 @@
 <div class="uk-grid">
     <div class="uk-width-3-4">
-        <table class="uk-table">
+        <table class="uk-table" *ngIf="authors">
             <caption>Authors:</caption>
             <thead>
             <tr>
+                <th>#</th>
                 <th>author name</th>
                 <th></th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <td colspan="2">...</td>
+                <td colspan="3">
+                    page: {{ authors.page }} / {{ authors.total_pages }}
+                </td>
             </tr>
             </tfoot>
             <tbody>
-            <tr>
-                <td>...</td>
-                <td>...</td>
+            <tr *ngFor="let author of authors.objects;">
+                <td>{{ author.author_id }}</td>
+                <td>{{ author.name }}</td>
+                <td class="uk-text-right">
+                    <a href="#" class="uk-button uk-button-primary"><i class="uk-icon uk-icon-edit"></i></a>
+                </td>
             </tr>
             </tbody>
         </table>
