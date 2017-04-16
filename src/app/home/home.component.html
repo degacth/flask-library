@@ -10,8 +10,12 @@
                     sint sit ullam voluptatibus.</p>
 
                 <div *ngIf="statistics">
-                    <a [routerLink]="['/author']" class="uk-button uk-button-primary">Authors count - {{ statistics.author_count }}</a>
-                    <a [routerLink]="['/book']" class="uk-button uk-button-primary">Books count - {{ statistics.book_count }}</a>
+                    <a [routerLink]="['/author']" id="home-author-link" class="uk-button uk-button-primary">
+                        Authors count - <span class="counter">{{ statistics.author_count }}</span>
+                    </a>
+                    <a [routerLink]="['/book']" id="home-book-link" class="uk-button uk-button-primary">
+                        Books count - <span class="counter">{{ statistics.book_count }}</span>
+                    </a>
                 </div>
             </div>
         </div>

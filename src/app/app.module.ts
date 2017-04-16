@@ -6,6 +6,7 @@ import {APP_BASE_HREF} from '@angular/common'
 import {AppComponent}  from './app.component';
 import {HomeModule} from './home/home.module';
 import {HomeComponent} from "./home/home.component";
+import {Settings} from "./app.settings";
 
 @NgModule({
     imports: [BrowserModule, HomeModule,
@@ -14,7 +15,7 @@ import {HomeComponent} from "./home/home.component";
             {path: '**', redirectTo: '/home'},
         ])
     ],
-    providers: [{provide: APP_BASE_HREF, useValue: '/'}],
+    providers: [{provide: APP_BASE_HREF, useValue: '/'}, Settings],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
 })

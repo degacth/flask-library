@@ -2,16 +2,14 @@ import {Injectable} from "@angular/core";
 import {Http, RequestMethod, Request} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
-
-const PROTOCOL = 'http';
-const PORT = 5000;
+import {Settings} from "../app.settings";
 
 @Injectable()
 export class RestDataSource<T> {
     private baseUrl: string;
 
-    constructor(private http: Http) {
-        this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/api`;
+    constructor(private http: Http, private settings: Settings) {
+        this.baseUrl = `${settings.HOSTNAME}/api`;
     }
 
     sendRequest(verb: RequestMethod, url: string, body?: any): Observable<T> {

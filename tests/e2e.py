@@ -13,6 +13,7 @@ class BaseLiveTestCase(LiveServerTestCase):
     def create_app(self):
         app.config['LIVESERVER_PORT'] = 5500
         app.config['LIVESERVER_TIMEOUT'] = 10
+        db.create_all()
         return app
 
     def setUp(self):
@@ -47,3 +48,6 @@ class MainTestCase(BaseLiveTestCase):
         drv.get(self.get_server_url())
         self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
         self.assertEqual(drv.current_url, self.get_server_url() + '/home')
+
+        self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '0')
+        self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '0')
