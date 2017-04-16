@@ -8,10 +8,17 @@ import {AuthorRepository} from "../model/author.repository";
     templateUrl: 'author.component.html'
 })
 export class AuthorComponent {
-    constructor(private productRep: AuthorRepository) {}
+    constructor(private authorRep: AuthorRepository) {}
 
     get authors(): Author[] {
-        console.log(this.productRep.getAuthors())
-        return this.productRep.getAuthors()
+        return this.authorRep.getAuthors()
+    }
+
+    get pageInfo() {
+        return {
+            'page': this.authorRep.page,
+            'numPage': this.authorRep.num_results,
+            'pages': this.authorRep.total_pages,
+        }
     }
 }

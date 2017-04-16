@@ -12,12 +12,12 @@
             <tfoot>
             <tr>
                 <td colspan="3">
-                    page: {{ authors.page }} / {{ authors.total_pages }}
+                    page: {{ pageInfo.page }} / {{ pageInfo.pages }}
                 </td>
             </tr>
             </tfoot>
             <tbody>
-            <tr *ngFor="let author of authors.objects;">
+            <tr *ngFor="let author of authors">
                 <td>{{ author.author_id }}</td>
                 <td>{{ author.name }}</td>
                 <td class="uk-text-right">

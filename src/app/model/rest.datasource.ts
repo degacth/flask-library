@@ -22,3 +22,10 @@ export class RestDataSource<T> {
         return this.http.request(request).map(response => response.json())
     }
 }
+
+export class RestlessData<T> {
+    objects: T[];
+    num_results: number;
+    page: number;
+    total_pages: number;
+}
