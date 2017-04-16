@@ -4,6 +4,7 @@ import requests
 from selenium import webdriver
 from flask_testing import LiveServerTestCase
 from application import app, db
+from application.library.fixtures import generate
 from config import Config
 
 
@@ -46,8 +47,9 @@ class MainTestCase(BaseLiveTestCase):
     def test_home_page(self):
         drv = self.driver
         drv.get(self.get_server_url())
+        generate(10, 20)
+
         self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
         self.assertEqual(drv.current_url, self.get_server_url() + '/home')
-
-        self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '0')
-        self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '0')
+        self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '10')
+        self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '20')
