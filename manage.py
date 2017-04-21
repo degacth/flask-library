@@ -2,8 +2,11 @@
 import os
 import subprocess
 import sys
-
 from flask_script import Manager, Command
+
+# dirty hack for test env
+if sys.argv[1] in ('test', 'e2e'):
+    os.environ['FLASK_CONFIG'] = 'test'
 
 from application import app, db
 from application.library.fixtures import generate
@@ -43,6 +46,4 @@ def initdb():
 
 
 if __name__ == '__main__':
-    if sys.argv[1] in ('test', 'e2e'):
-        os.environ['FLASK_CONFIG'] = 'test'
     manager.run()
