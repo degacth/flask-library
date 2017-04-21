@@ -45,11 +45,19 @@ class MainTestCase(BaseLiveTestCase):
         self.assertTrue('<app>' in res.text)
 
     def test_home_page(self):
+        generate(10, 20)
         drv = self.driver
         drv.get(self.get_server_url())
-        generate(10, 20)
 
         self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
         self.assertEqual(drv.current_url, self.get_server_url() + '/home')
         self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '10')
         self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '20')
+
+    def test_author_list_page(self):
+        generate(30, 0)
+
+        drv = self.driver
+        drv.get(self.get_server_url() + '/author')
+        self.assertEqual(len(drv.find_elements_by_css_selector('author table tbody tr')), 10)
+        self.assertEqual(drv.find_element_by_css_selector('author table tfoot tr td').text, 'page: 1 / 3')

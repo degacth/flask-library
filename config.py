@@ -19,7 +19,9 @@ class TestConfig(Config):
     TESTING = True
     CELERY_ALWAYS_EAGER = True
     PRESERVE_CONTEXT_ON_EXCEPTION = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_USE_DB') or 'sqlite:///%s' % (
+        os.path.join(Config.BASE_DIR, 'test_library.db')
+    )
 
 
 configurations = {
