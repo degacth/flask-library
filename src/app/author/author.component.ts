@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
-import {Author} from "../model/author.model";
-import {AuthorRepository} from "../model/author.repository";
+import {Author, AuthorRepository} from "../model/entity/author.model";
 
 @Component({
     selector: 'author',

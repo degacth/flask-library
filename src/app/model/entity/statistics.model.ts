@@ -1,13 +1,17 @@
 import {Injectable} from "@angular/core";
-import {Statistics} from "./statistics.model";
-import {RestDataSource} from "./rest.datasource";
+import {RestDataSource} from "../rest.datasource";
 import {RequestMethod} from "@angular/http";
 import {Observable} from "rxjs";
 
+export class Statistics {
+    book_count: number;
+    author_count: number;
+}
 
 @Injectable()
 export class StatisticsRepository {
     private statistics: Statistics;
+
     constructor(private source: RestDataSource<Statistics>) {
         this.loadStatistics().subscribe(data => this.statistics = data);
     }
