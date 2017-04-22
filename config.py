@@ -2,7 +2,7 @@ import os
 
 
 class Config:
-    BASE_DIR = os.path.dirname(__file__)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_USE_DB') or 'sqlite:///%s' % (
         os.path.join(BASE_DIR, 'library.db')
     )
