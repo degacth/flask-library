@@ -1,14 +1,13 @@
 import {NgModule} from "@angular/core";
 import {HttpModule} from "@angular/http";
-import {RestDataSource} from "./rest.datasource";
 import {AuthorRepository} from "./entity/author.model";
 import {StatisticsRepository} from "./entity/statistics.model";
-import {DataSource} from "./data.source";
+import {RestDataSource, RestlessDataSource} from "./rest.datasource";
 
 @NgModule({
     imports: [HttpModule],
     providers: [StatisticsRepository, AuthorRepository,
-        {provide: DataSource, useClass: RestDataSource},
+        {provide: RestDataSource, useClass: RestlessDataSource},
     ]
 })
 export class ModelModule {

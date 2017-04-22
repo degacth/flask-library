@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {DataSource} from "../data.source";
+import {IRestDataSource, RestDataSource} from "../rest.datasource";
 
 export class Statistics {
     book_count: number;
@@ -11,12 +11,12 @@ export class Statistics {
 export class StatisticsRepository {
     private statistics: Statistics;
 
-    constructor(private source: DataSource<Statistics>) {
+    constructor(@Inject(RestDataSource) private source: IRestDataSource) {
         this.loadStatistics().subscribe(data => this.statistics = data);
     }
 
     getStatistics: () => Statistics = () => this.statistics;
 
     private loadStatistics: () => Observable<Statistics> =
-        () => this.source.select('statistics')
+        () => this.source.get<Statistics>(['statistics'])
 }

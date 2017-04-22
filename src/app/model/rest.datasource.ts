@@ -1,23 +1,34 @@
-import {Injectable} from "@angular/core";
+import {Injectable, InjectionToken} from "@angular/core";
 import {Http, RequestMethod, Request} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import {Settings} from "../app.settings";
-import {DataSource} from "./data.source";
+
+export interface IRestDataSource {
+    get: <T>(url: string[]) => Observable<T>
+    // post: any
+    // put: any
+    // patch: any
+    // del: any
+}
+
+export const RestDataSource = new InjectionToken('restdatasource');
 
 @Injectable()
-export class RestDataSource<T> implements DataSource<T> {
+export class RestlessDataSource implements IRestDataSource {
     private baseUrl: string;
-    select = (from: string) => this.sendRequest(RequestMethod.Get, from);
 
     constructor(private http: Http, private settings: Settings) {
         this.baseUrl = `${settings.HOSTNAME}/api`;
     }
 
-    private sendRequest(verb: RequestMethod, url: string, body?: any): Observable<T> {
+    get: <T>(url: string[]) => Observable<T> =
+        (url: string[]) => this.sendRequest(RequestMethod.Get, url);
+
+    private sendRequest<T>(verb: RequestMethod, url: string[], body?: any): Observable<T> {
         let request = new Request({
             method: verb,
-            url: `${this.baseUrl}/${url}`,
+            url: `${this.baseUrl}/${url.join('/')}`,
             body: body,
         });
 

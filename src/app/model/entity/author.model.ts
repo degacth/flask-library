@@ -1,7 +1,6 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {RequestMethod} from "@angular/http";
-import {DataSource} from "../data.source";
+import {IRestDataSource, RestDataSource} from "../rest.datasource";
 
 export class Author {
     author_id: number;
@@ -15,14 +14,14 @@ export class AuthorRepository {
     num_results: number;
     total_pages: number;
 
-    constructor(private source: DataSource<Author>) {
+    constructor(@Inject(RestDataSource) private source: IRestDataSource) {
         this.loadAuthors().subscribe(data => {
             Object.assign(this, data)
         })
     }
 
     private loadAuthors: () => Observable<Author> =
-        () => this.source.select('author');
+        () => this.source.get<Author>(['author']);
 
     getAuthors: () => Author[] = () => this.objects;
 }
