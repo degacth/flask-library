@@ -15,9 +15,9 @@ export class AuthorComponent {
 
     get pageInfo() {
         return {
-            'page': this.authorRep.page,
-            'numPage': this.authorRep.num_results,
-            'pages': this.authorRep.total_pages,
+            'page': this.authorRep.paginator.getPage(),
+            'numPage': this.authorRep.paginator.getPage(),
+            'pages': this.authorRep.paginator.getTotalPages(),
         }
     }
 }

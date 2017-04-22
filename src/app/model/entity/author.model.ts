@@ -1,6 +1,7 @@
 import {Inject, Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {IRestDataSource, RestDataSource} from "../rest.datasource";
+import {Paginator} from "../paginator.model";
 
 export class Author {
     author_id: number;
@@ -9,19 +10,16 @@ export class Author {
 
 @Injectable()
 export class AuthorRepository {
-    objects: Author[];
-    page: number;
-    num_results: number;
-    total_pages: number;
+    paginator: Paginator<Author> = new Paginator<Author>();
 
     constructor(@Inject(RestDataSource) private source: IRestDataSource) {
         this.loadAuthors().subscribe(data => {
-            Object.assign(this, data)
+            this.paginator.updatePage(data);
         })
     }
 
-    private loadAuthors: () => Observable<Author> =
-        () => this.source.get<Author>(['author']);
+    private loadAuthors: () => Observable<Paginator<Author>> =
+        () => this.source.get<Paginator<Author>>(['author']);
 
-    getAuthors: () => Author[] = () => this.objects;
+    getAuthors: () => Author[] = () => this.paginator.getObjects();
 }

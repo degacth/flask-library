@@ -32,6 +32,6 @@ export class RestlessDataSource implements IRestDataSource {
             body: body,
         });
 
-        return this.http.request(request).map(response => response.json())
+        return this.http.request(request).map(response => <T>response.json())
     }
 }
