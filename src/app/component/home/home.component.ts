@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Statistics, StatisticsRepository} from "../model/entity/statistics.model";
+import {Statistics, StatisticsRepository} from "../../model/entity/statistics.model";
 
 @Component({
     selector: 'home',
