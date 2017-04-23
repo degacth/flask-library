@@ -27,7 +27,7 @@ class BaseLiveTestCase(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         drv = webdriver.Chrome(os.path.join(Config.BASE_DIR, 'tests', 'chromedriver'))
-        drv.implicitly_wait(3)
+        drv.implicitly_wait(1)
         cls.driver = drv
 
     @classmethod
