@@ -5,9 +5,10 @@ import {ModelModule} from "../model/model.module";
 import {HomeComponent} from "./home/home.component";
 import {APP_ROUTES} from "./component.routes";
 import {RouterModule} from "@angular/router";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
-    imports: [BrowserModule, ModelModule, RouterModule.forRoot(APP_ROUTES)],
+    imports: [BrowserModule, ModelModule, SharedModule, RouterModule.forRoot(APP_ROUTES)],
     declarations: [AuthorComponent, HomeComponent],
     exports: [HomeComponent]
 })
