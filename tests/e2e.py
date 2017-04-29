@@ -60,4 +60,3 @@ class MainTestCase(BaseLiveTestCase):
         drv = self.driver
         drv.get(self.get_server_url() + '/author')
         self.assertEqual(len(drv.find_elements_by_css_selector('author table tbody tr')), 10)
-        self.assertEqual(drv.find_element_by_css_selector('author table tfoot tr td').text, 'page: 1 / 3')
