@@ -8,5 +8,9 @@ import {IPaginator} from "../../model/paginator.model";
 })
 export class Paginator {
     @Input('resource')
-    paginatorResource: IPaginator;
+    resource: IPaginator;
+
+    getPages: () => number[] = () => {
+        return [1, 2, 3];
+    }
 }
