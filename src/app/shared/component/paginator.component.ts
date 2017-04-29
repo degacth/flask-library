@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {IPaginator} from "../../model/paginator.model";
+import * as _ from "lodash";
 
 @Component({
     moduleId: module.id,
