@@ -1,6 +1,8 @@
-<ul class="uk-pagination">
-    <li *ngFor="let page of getPages()" class="uk-active">
-        <span>{{ page }}</span>
+<ul class="uk-pagination uk-text-right">
+    <li *ngFor="let page of getPages()" [ngClass]="{'uk-active': page.isActive}">
+        <a *ngIf="page.isLink">
+            <span>{{ page.label }}</span>
+        </a>
+        <span *ngIf="!page.isLink">{{ page.label }}</span>
     </li>
-    <li><span>...</span></li>
 </ul>

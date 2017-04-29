@@ -9,14 +9,6 @@
                 <th></th>
             </tr>
             </thead>
-            <tfoot>
-            <tr>
-                <td colspan="3">
-                    <paginator [resource]="paginatorResource"></paginator>
-                    page: {{ pageInfo.page }} / {{ pageInfo.pages }}
-                </td>
-            </tr>
-            </tfoot>
             <tbody>
             <tr *ngFor="let author of authors">
                 <td>{{ author.author_id }}</td>
@@ -27,6 +19,7 @@
             </tr>
             </tbody>
         </table>
+        <paginator [resource]="paginatorResource"></paginator>
     </div>
 
     <div class="uk-width-1-4">
