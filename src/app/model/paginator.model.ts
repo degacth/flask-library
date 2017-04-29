@@ -2,6 +2,7 @@ export interface IPaginator {
     getNumResults: () => number
     getObjects: <T>() => T[]
     getPage: () => number
+    setPage: (p: number) => void
     getTotalPages: () => number
     updatePage: (data: Object) => void
 }
@@ -14,9 +15,11 @@ export class RestlessPaginator<T> implements IPaginator{
 
     getNumResults = () => this.num_results;
     getObjects = () => this.objects;
-    getPage = () => this.page;
     getTotalPages = () => this.total_pages;
     updatePage = (data: Object) => Object.assign(this, data);
+
+    getPage = () => this.page;
+    setPage = (page: number) => this.page = page;
 }
 
 export class Paginator<T> extends RestlessPaginator<T> implements IPaginator {

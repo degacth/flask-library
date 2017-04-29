@@ -1,6 +1,6 @@
 <ul class="uk-pagination uk-text-right">
     <li *ngFor="let page of getPages()" [ngClass]="{'uk-active': page.isActive}">
-        <a *ngIf="page.isLink">
+        <a *ngIf="page.isLink" (click)="onChangePage.emit(page.position)">
             <span>{{ page.label }}</span>
         </a>
         <span *ngIf="!page.isLink">{{ page.label }}</span>

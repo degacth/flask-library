@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {IPaginator} from "../../model/paginator.model";
 import * as _ from "lodash";
 
@@ -10,6 +10,9 @@ import * as _ from "lodash";
 export class Paginator {
     @Input('resource')
     resource: IPaginator;
+
+    @Output()
+    onChangePage = new EventEmitter<number>();
 
     getPages: () => Page[] = () => {
         let activePage: number = this.resource.getPage();
@@ -24,12 +27,12 @@ export class Paginator {
         // set bounds and separators
         let pageSeparator: number = 0;
         if (_.head(pages) != minPage) pages = _.concat([minPage, pageSeparator], pages);
-        if (_.last(pages) != totalPages ) pages = _.concat(pages, [pageSeparator, totalPages]);
+        if (_.last(pages) != totalPages) pages = _.concat(pages, [pageSeparator, totalPages]);
 
         return _.concat(
             _.map(pages, page => new Page(page, page === activePage)),
         )
-    }
+    };
 }
 
 class Page {

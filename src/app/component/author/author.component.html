@@ -19,7 +19,7 @@
             </tr>
             </tbody>
         </table>
-        <paginator [resource]="paginatorResource"></paginator>
+        <paginator [resource]="paginatorResource" (onChangePage)="pageChanged($event)"></paginator>
     </div>
 
     <div class="uk-width-1-4">
