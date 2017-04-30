@@ -56,22 +56,26 @@ class MainTestCase(BaseLiveTestCase):
 
 
 class AuthorTestCase(BaseLiveTestCase):
+    authors_count = 30
+    list_items = 10
+
     def setUp(self):
-        generate(30, 0)
+        generate(self.authors_count, 0)
         BaseLiveTestCase.setUp(self)
         self.driver.get(self.get_server_url())
         self.driver.find_element_by_css_selector('#author-menu-link').click()
 
     def test_author_list_page(self):
-        self.assertEqual(len(self.driver.find_elements_by_css_selector('author table tbody tr')), 10)
+        self.assertEqual(len(self.driver.find_elements_by_css_selector('author table tbody tr')), self.list_items)
 
     def test_author_pagination(self):
         paginator = self.driver.find_element_by_css_selector('paginator')
         last_link = paginator.find_element_by_css_selector('li:last-child a')
-        self.assertEqual(last_link.text, '3')
+        self.assertEqual(last_link.text, str(int(self.authors_count / self.list_items)))
 
         get_first_author_id = lambda: self.driver.find_element_by_css_selector('author tbody tr:first-child td').text
         first_author_id = get_first_author_id()
         last_link.click()
         self.assertNotEqual(first_author_id, get_first_author_id())
-        self.assertEqual(self.driver.find_element_by_css_selector('author tbody tr:last-child td').text, '30')
+        self.assertEqual(self.driver.find_element_by_css_selector('author tbody tr:last-child td').text,
+                         str(self.authors_count))
