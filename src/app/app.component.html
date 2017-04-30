@@ -2,11 +2,8 @@
     <nav class="uk-navbar uk-margin-large-bottom">
         <a class="uk-navbar-brand uk-hidden-small" [routerLink]="['']">Flask Library</a>
         <ul class="uk-navbar-nav uk-hidden-small">
-            <li>
-                <a [routerLink]="['/author']" id="author-menu-link">Authors</a>
-            </li>
-            <li>
-                <a [routerLink]="['/book']">Books</a>
+            <li routerLinkActive="uk-active" *ngFor="let menu of main_menu">
+                <a [routerLink]="menu.path" id="author-menu-link">{{ menu.title }}</a>
             </li>
         </ul>
     </nav>

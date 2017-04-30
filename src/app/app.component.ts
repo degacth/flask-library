@@ -6,4 +6,9 @@ import {Router} from '@angular/router';
     templateUrl: 'app.component.html',
     moduleId: module.id,
 })
-export class AppComponent {}
+export class AppComponent {
+    main_menu = [
+        {path: ['author'], title: 'Authors'},
+        {path: ['book'], title: 'Books'},
+    ]
+}
