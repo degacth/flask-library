@@ -1,18 +1,19 @@
 import {Component, OnInit} from "@angular/core";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {IPaginator} from "../../model/paginator.model";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
     selector: 'author',
     moduleId: module.id,
-    templateUrl: 'author.component.html'
+    templateUrl: 'author-list.component.html'
 })
-export class AuthorComponent implements OnInit {
-    constructor(private authorRep: AuthorRepository) {
+export class AuthorListComponent implements OnInit {
+    constructor(private authorRep: AuthorRepository, private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit(): void {
-        this.authorRep.loadAuthors(1);
+        this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']))
     }
 
     get authors(): Author[] {
@@ -32,6 +33,6 @@ export class AuthorComponent implements OnInit {
     }
 
     pageChanged(page: number) {
-        this.authorRep.loadAuthors(page);
+        this.router.navigate([this.route.parent.routeConfig.path, 'list', page])
     }
 }

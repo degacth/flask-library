@@ -1,16 +1,17 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
-import {AuthorComponent} from "./author.component";
+import {AuthorListComponent} from "./author-list.component";
 import {SharedModule} from "../../shared/shared.module";
 import {CommonModule} from "@angular/common";
 
 let routes = [
-    {path: '', component: AuthorComponent},
+    {path: 'list/:id', component: AuthorListComponent},
+    {path: '**', redirectTo: 'list/1'},
 ];
 
 @NgModule({
     imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
-    declarations: [AuthorComponent],
+    declarations: [AuthorListComponent],
 })
 export class AuthorModule {
 }
