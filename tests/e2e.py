@@ -54,9 +54,12 @@ class MainTestCase(BaseLiveTestCase):
         self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '10')
         self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '20')
 
+
+class AuthorTestCase(BaseLiveTestCase):
     def test_author_list_page(self):
         generate(30, 0)
 
         drv = self.driver
-        drv.get(self.get_server_url() + '/author')
+        drv.get(self.get_server_url())
+        drv.find_element_by_css_selector('#author-menu-link').click()
         self.assertEqual(len(drv.find_elements_by_css_selector('author table tbody tr')), 10)
