@@ -1,9 +1,9 @@
 import {NgModule} from "@angular/core";
 import {Paginator} from "./component/paginator.component";
-import {BrowserModule} from "@angular/platform-browser";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
-    imports: [BrowserModule],
+    imports: [CommonModule],
     declarations: [Paginator],
     exports: [Paginator]
 })
