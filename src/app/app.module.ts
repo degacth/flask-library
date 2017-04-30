@@ -5,10 +5,10 @@ import {APP_BASE_HREF} from '@angular/common'
 import {AppComponent}  from './app.component';
 import {Settings} from "./app.settings";
 import {RouterModule} from "@angular/router";
-import {ComponentModule} from "./page/component.module";
+import {PageModule} from "./page/page.module";
 
 @NgModule({
-    imports: [BrowserModule, RouterModule, ComponentModule],
+    imports: [BrowserModule, RouterModule, PageModule],
     providers: [{provide: APP_BASE_HREF, useValue: '/'}, Settings],
     declarations: [AppComponent],
     bootstrap: [AppComponent],

@@ -50,7 +50,7 @@ class MainTestCase(BaseLiveTestCase):
         drv.get(self.get_server_url())
 
         self.assertEqual(drv.find_element_by_css_selector('.uk-heading-large').text, 'Flask Library')
-        self.assertEqual(drv.current_url, self.get_server_url() + '/home')
+        self.assertEqual(drv.current_url, self.get_server_url() + '/')
         self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '10')
         self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '20')
 
