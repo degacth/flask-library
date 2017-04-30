@@ -1,5 +1,4 @@
 import {Inject, Injectable, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
 import {IRestDataSource, RestDataSource} from "../rest.datasource";
 import {Paginator} from "../paginator.model";
 
