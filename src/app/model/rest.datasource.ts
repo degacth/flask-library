@@ -26,7 +26,7 @@ export class RestlessDataSource implements IRestDataSource {
     get: <T>(url: (string | Object)[]) => Observable<T> =
         (url: (string | Object)[]) => {
             let urlPath: string = _.filter(url, item => typeof item === 'string').join('/');
-            let urlQuery: string = this.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
+            let urlQuery: string = RestlessDataSource.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
             return this.sendRequest(RequestMethod.Get, `${urlPath}?${urlQuery}`);
         };
 
@@ -40,7 +40,7 @@ export class RestlessDataSource implements IRestDataSource {
         return this.http.request(request).map(response => <T>response.json())
     }
 
-    private makeQueryFromObject(obj: Object): string {
+    private static makeQueryFromObject(obj: Object): string {
         return _.map(_.toPairs(obj), kv => `${kv[0]}=${kv[1]}`).join('&')
     }
 }
