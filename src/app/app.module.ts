@@ -5,7 +5,7 @@ import {APP_BASE_HREF} from '@angular/common'
 import {AppComponent}  from './app.component';
 import {Settings} from "./app.settings";
 import {RouterModule} from "@angular/router";
-import {ComponentModule} from "./component/component.module";
+import {ComponentModule} from "./page/component.module";
 
 @NgModule({
     imports: [BrowserModule, RouterModule, ComponentModule],
