@@ -54,6 +54,10 @@ class MainTestCase(BaseLiveTestCase):
         self.assertEqual(drv.find_element_by_css_selector('#home-author-link .counter').text, '10')
         self.assertEqual(drv.find_element_by_css_selector('#home-book-link .counter').text, '20')
 
+    def test_not_found(self):
+        self.driver.get(self.get_server_url() + '/page/not/found/')
+        self.assertTrue(self.driver.find_element_by_css_selector('h3').text.startswith('404'))
+
 
 class AuthorTestCase(BaseLiveTestCase):
     authors_count = 30
