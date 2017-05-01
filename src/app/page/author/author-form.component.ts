@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {ActivatedRoute} from "@angular/router";
+import * as _ from "lodash";
 
 @Component({
     selector: 'author-form',
@@ -32,5 +33,11 @@ export class AuthorForm implements OnInit {
     private setAuthor(author: Author) {
         this.author = author;
         this.createForm();
+    }
+
+    onSubmit() {
+        if (this.form.invalid) return;
+        _.extend(this.author, this.form.value);
+        this.rep.update(this.author).subscribe(author => console.log(author));
     }
 }

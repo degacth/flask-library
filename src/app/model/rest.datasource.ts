@@ -8,7 +8,7 @@ import {Settings} from "../app.settings";
 export interface IRestDataSource {
     get: <T>(url: (string | Object)[]) => Observable<T>
     // post: any
-    // put: any
+    put: any
     // patch: any
     // del: any
 }
@@ -25,10 +25,13 @@ export class RestlessDataSource implements IRestDataSource {
 
     get: <T>(url: (string | Object)[]) => Observable<T> =
         (url: (string | Object)[]) => {
-            let urlPath: string = _.filter(url, item => typeof item !== 'object').join('/');
+            let urlPath: string = RestlessDataSource.getPath(url);
             let urlQuery: string = RestlessDataSource.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
             return this.sendRequest(RequestMethod.Get, `${urlPath}?${urlQuery}`);
         };
+
+    put: <T>(url: string[], body: Object) => Observable<T> =
+        (url: string[], body: Object) => this.sendRequest(RequestMethod.Put, RestlessDataSource.getPath(url), body);
 
     private sendRequest<T>(verb: RequestMethod, url: string, body?: any): Observable<T> {
         let request = new Request({
@@ -38,6 +41,10 @@ export class RestlessDataSource implements IRestDataSource {
         });
 
         return this.http.request(request).map(response => <T>response.json())
+    }
+
+    private static getPath(url: any[]): string {
+        return _.filter(url, item => typeof item !== 'object').join('/');
     }
 
     private static makeQueryFromObject(obj: Object): string {

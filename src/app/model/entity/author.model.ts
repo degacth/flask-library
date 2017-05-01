@@ -21,5 +21,6 @@ export class AuthorRepository {
         });
 
     getAuthors: () => Author[] = () => this.paginator.getObjects();
-    getAuthor: (id: number) => Observable<Author> = (id) => this.source.get<Author>(['author', id])
+    getAuthor: (id: number) => Observable<Author> = (id) => this.source.get<Author>(['author', id]);
+    update: (author: Author) => Observable<Author> = (author) => this.source.put(['author', author.author_id], author)
 }
