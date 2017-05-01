@@ -15,8 +15,8 @@ export class AuthorListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']))
-        this.parentPath = this.route.parent.routeConfig.path
+        this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']));
+        this.parentPath = this.route.parent.parent.routeConfig.path;
     }
 
     get authors(): Author[] {

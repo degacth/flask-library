@@ -1,35 +1,22 @@
-<div class="uk-grid">
-    <div class="uk-width-3-4">
-        <table class="uk-table" *ngIf="authors">
-            <caption>Authors:</caption>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>author name</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let author of authors">
-                <td>{{ author.author_id }}</td>
-                <td>{{ author.name }}</td>
-                <td class="uk-text-right">
-                    <a [routerLink]="getEditLink(author.author_id)" class="uk-button uk-button-primary">
-                        <i class="uk-icon uk-icon-edit"></i>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <paginator [resource]="paginatorResource" (onChangePage)="pageChanged($event)"></paginator>
-    </div>
-
-    <div class="uk-width-1-4">
-        <ul class="uk-nav uk-nav-side">
-            <li class="uk-nav-header">Author Menu</li>
-            <li class="uk-nav-divider"></li>
-            <li class="uk-active"><a href="#">Active</a></li>
-            <li><a href="#">Item</a></li>
-        </ul>
-    </div>
-</div>
+<table class="uk-table" *ngIf="authors">
+    <caption>Authors:</caption>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>author name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let author of authors">
+        <td>{{ author.author_id }}</td>
+        <td>{{ author.name }}</td>
+        <td class="uk-text-right">
+            <a [routerLink]="getEditLink(author.author_id)" class="uk-button uk-button-primary">
+                <i class="uk-icon uk-icon-edit"></i>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<paginator [resource]="paginatorResource" (onChangePage)="pageChanged($event)"></paginator>

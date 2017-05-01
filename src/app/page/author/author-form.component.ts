@@ -48,7 +48,7 @@ export class AuthorForm implements OnInit {
 
         _.extend(this.author, this.form.value);
         this.rep.update(this.author).subscribe(author => this.router.navigate([
-            this.route.parent.routeConfig.path, 'list', 1
+            this.route.parent.parent.routeConfig.path, 'list', 1
         ]));
     }
 }
