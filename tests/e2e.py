@@ -83,3 +83,15 @@ class AuthorTestCase(BaseLiveTestCase):
         self.assertNotEqual(first_author_id, get_first_author_id())
         self.assertEqual(self.driver.find_element_by_css_selector('author tbody tr:last-child td').text,
                          str(self.authors_count))
+
+    def test_edit_author(self):
+        first_author = self.driver.find_element_by_css_selector('author tbody tr:first-child')
+        first_author_name = first_author.find_element_by_css_selector('td:nth-child(2)').text
+        first_author.find_element_by_css_selector('a').click()
+
+        addition_text = 'test'
+        self.driver.find_element_by_css_selector('[formcontrolname=name]').send_keys(addition_text)
+        self.driver.find_element_by_css_selector('button[type=submit]').click()
+
+        self.assertEqual(first_author_name + addition_text,
+                         self.driver.find_element_by_css_selector('author tbody tr:first-child td:nth-child(2)').text)
