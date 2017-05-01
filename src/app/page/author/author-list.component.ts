@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {IPaginator} from "../../model/paginator.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {getNearestParentPath} from "./utils";
 
 @Component({
     selector: 'author',
@@ -16,7 +17,7 @@ export class AuthorListComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']));
-        this.parentPath = this.route.parent.parent.routeConfig.path;
+        this.parentPath = getNearestParentPath(this.route)
     }
 
     get authors(): Author[] {
@@ -40,6 +41,6 @@ export class AuthorListComponent implements OnInit {
     }
 
     getEditLink(id: number): any[] {
-        return ['/', this.parentPath, 'form', id]
+        return [this.parentPath, 'form', id]
     }
 }

@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
+import {getNearestParentPath} from "./utils";
 
 @Component({
     selector: 'author-form',
@@ -13,6 +14,7 @@ export class AuthorForm implements OnInit {
     form: FormGroup;
     author: Author;
     id: number;
+    parentPath: string;
 
     constructor(private fb: FormBuilder, private route: ActivatedRoute, private rep: AuthorRepository,
                 private router: Router) {
@@ -23,6 +25,8 @@ export class AuthorForm implements OnInit {
             this.id = params['id'];
             this.rep.getAuthor(this.id).subscribe(this.setAuthor.bind(this));
         });
+
+        this.parentPath = getNearestParentPath(this.route);
     }
 
     private createForm() {
@@ -48,7 +52,7 @@ export class AuthorForm implements OnInit {
 
         _.extend(this.author, this.form.value);
         this.rep.update(this.author).subscribe(author => this.router.navigate([
-            this.route.parent.parent.routeConfig.path, 'list', 1
+            this.parentPath, 'list', 1
         ]));
     }
 }
