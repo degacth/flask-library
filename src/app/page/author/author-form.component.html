@@ -7,7 +7,7 @@
 
                 <div class="uk-form-controls">
                     <input id="form-h-it" formControlName="name" placeholder="author name" class="uk-width-1-1"
-                           required>
+                           [ngClass]="getInputClass('name')">
                 </div>
             </div>
         </fieldset>

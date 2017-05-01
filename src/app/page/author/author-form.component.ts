@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
@@ -27,13 +27,20 @@ export class AuthorForm implements OnInit {
 
     private createForm() {
         this.form = this.fb.group({
-            name: this.author.name,
+            name: [this.author.name, Validators.required],
         })
     }
 
     private setAuthor(author: Author) {
         this.author = author;
         this.createForm();
+    }
+
+    getInputClass(name: string): Object {
+        let input: AbstractControl = this.form.get(name);
+        return {
+            'uk-form-danger': input.dirty && input.status == 'INVALID',
+        }
     }
 
     onSubmit() {
