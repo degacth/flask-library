@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
 
 @Component({
@@ -14,7 +14,8 @@ export class AuthorForm implements OnInit {
     author: Author;
     id: number;
 
-    constructor(private fb: FormBuilder, private route: ActivatedRoute, private rep: AuthorRepository) {
+    constructor(private fb: FormBuilder, private route: ActivatedRoute, private rep: AuthorRepository,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -37,7 +38,10 @@ export class AuthorForm implements OnInit {
 
     onSubmit() {
         if (this.form.invalid) return;
+
         _.extend(this.author, this.form.value);
-        this.rep.update(this.author).subscribe(author => console.log(author));
+        this.rep.update(this.author).subscribe(author => this.router.navigate([
+            this.route.parent.routeConfig.path, 'list', 1
+        ]));
     }
 }
