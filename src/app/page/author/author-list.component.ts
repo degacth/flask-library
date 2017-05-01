@@ -9,11 +9,14 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
     templateUrl: 'author-list.component.html'
 })
 export class AuthorListComponent implements OnInit {
+    parentPath: string;
+
     constructor(private authorRep: AuthorRepository, private route: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']))
+        this.parentPath = this.route.parent.routeConfig.path
     }
 
     get authors(): Author[] {
@@ -32,7 +35,12 @@ export class AuthorListComponent implements OnInit {
         }
     }
 
-    pageChanged(page: number) {
-        this.router.navigate([this.route.parent.routeConfig.path, 'list', page])
+    pageChanged(page: number): void {
+        this.router.navigate([this.parentPath, 'list', page])
+    }
+
+    getEditLink(id: number): any[] {
+        return ['/', this.parentPath, 'form', id]
     }
 }
+
