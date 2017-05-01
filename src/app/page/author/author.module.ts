@@ -4,6 +4,7 @@ import {AuthorListComponent} from "./author-list.component";
 import {SharedModule} from "../../shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {AuthorForm} from "./author-form.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 let routes = [
     {path: 'list/:id', component: AuthorListComponent},
@@ -12,7 +13,7 @@ let routes = [
 ];
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
+    imports: [ReactiveFormsModule, CommonModule, SharedModule, RouterModule.forChild(routes)],
     declarations: [AuthorListComponent, AuthorForm],
 })
 export class AuthorModule {

@@ -43,4 +43,3 @@ export class AuthorListComponent implements OnInit {
         return ['/', this.parentPath, 'form', id]
     }
 }
-

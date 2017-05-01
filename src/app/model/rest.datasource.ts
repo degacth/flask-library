@@ -25,7 +25,7 @@ export class RestlessDataSource implements IRestDataSource {
 
     get: <T>(url: (string | Object)[]) => Observable<T> =
         (url: (string | Object)[]) => {
-            let urlPath: string = _.filter(url, item => typeof item === 'string').join('/');
+            let urlPath: string = _.filter(url, item => typeof item !== 'object').join('/');
             let urlQuery: string = RestlessDataSource.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
             return this.sendRequest(RequestMethod.Get, `${urlPath}?${urlQuery}`);
         };

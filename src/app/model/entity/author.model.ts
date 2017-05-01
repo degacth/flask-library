@@ -1,6 +1,7 @@
 import {Inject, Injectable, OnInit} from "@angular/core";
 import {IRestDataSource, RestDataSource} from "../rest.datasource";
 import {Paginator} from "../paginator.model";
+import {Observable} from "rxjs/Observable";
 
 export class Author {
     author_id: number;
@@ -20,4 +21,5 @@ export class AuthorRepository {
         });
 
     getAuthors: () => Author[] = () => this.paginator.getObjects();
+    getAuthor: (id: number) => Observable<Author> = (id) => this.source.get<Author>(['author', id])
 }
