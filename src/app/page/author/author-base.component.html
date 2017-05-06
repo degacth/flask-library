@@ -7,9 +7,9 @@
         <ul class="uk-nav uk-nav-side">
             <li class="uk-nav-header">Author Menu</li>
             <li class="uk-nav-divider"></li>
-            <li routerLinkActive="uk-active"><a [routerLink]="[parentPath, 'list']">Author list</a></li>
+            <li routerLinkActive="uk-active"><a [routerLink]="[urlPrefix, 'list']">Author list</a></li>
             <li routerLinkActive="uk-active">
-                <a [routerLink]="[parentPath, 'form']" id="author-menu-add">Add author</a>
+                <a [routerLink]="[urlPrefix, 'form']" id="author-menu-add">Add author</a>
             </li>
         </ul>
     </div>

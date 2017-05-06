@@ -1,19 +1,18 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {getNearestParentPath} from "./utils";
+import {RouteBuilder} from "../../shared/service/route-builder.service";
 
 @Component({
     selector: 'author-base',
     moduleId: module.id,
     templateUrl: 'author-base.component.html',
+    providers: [RouteBuilder],
 })
-export class AuthorBaseComponent implements OnInit {
-    parentPath: string;
-
-    constructor(private route: ActivatedRoute) {
+export class AuthorBaseComponent {
+    constructor(private routeBuilder: RouteBuilder) {
     }
 
-    ngOnInit(): void {
-        this.parentPath = getNearestParentPath(this.route);
+    get urlPrefix(): string {
+        return this.routeBuilder.prefix;
     }
 }

@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {IPaginator} from "../../model/paginator.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {getNearestParentPath} from "./utils";
 import {Modal} from "../../shared/service/modal.service";
 import * as _ from "lodash";
 import {RouteBuilder} from "../../shared/service/route-builder.service";
@@ -11,7 +10,6 @@ import {RouteBuilder} from "../../shared/service/route-builder.service";
     selector: 'author',
     moduleId: module.id,
     templateUrl: 'author-list.component.html',
-    providers: [RouteBuilder]
 })
 export class AuthorListComponent implements OnInit {
     constructor(private repo: AuthorRepository, private route: ActivatedRoute, private router: Router,
