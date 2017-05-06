@@ -5,22 +5,21 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {getNearestParentPath} from "./utils";
 import {Modal} from "../../shared/service/modal.service";
 import * as _ from "lodash";
+import {RouteBuilder} from "../../shared/service/route-builder.service";
 
 @Component({
     selector: 'author',
     moduleId: module.id,
-    templateUrl: 'author-list.component.html'
+    templateUrl: 'author-list.component.html',
+    providers: [RouteBuilder]
 })
 export class AuthorListComponent implements OnInit {
-    parentPath: string;
-
     constructor(private repo: AuthorRepository, private route: ActivatedRoute, private router: Router,
-                private modal: Modal) {
+                private modal: Modal, private routeBuilder: RouteBuilder) {
     }
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => this.repo.loadAuthors(params['id']));
-        this.parentPath = getNearestParentPath(this.route)
     }
 
     get authors(): Author[] {
@@ -40,11 +39,11 @@ export class AuthorListComponent implements OnInit {
     }
 
     pageChanged(page: number): void {
-        this.router.navigate([this.parentPath, 'list', page])
+        this.router.navigate([this.routeBuilder.prefix, 'list', page])
     }
 
     getEditLink(id: number): any[] {
-        return [this.parentPath, 'form', id]
+        return [this.routeBuilder.prefix, 'form', id]
     }
 
     remove(id: number): void {

@@ -14,7 +14,7 @@ from config import Config
 
 class BaseLiveTestCase(LiveServerTestCase):
     driver = None
-    wait_time = 1
+    wait_time = 2
 
     def create_app(self):
         app.config['LIVESERVER_PORT'] = 5500
@@ -118,6 +118,10 @@ class AuthorTestCase(BaseLiveTestCase):
 
         id = get_first_author_id()
         get_first_autor_row().find_element_by_css_selector('a.remove-link').click()
+
+        # wait clickable OK
+        WebDriverWait(self.driver, self.wait_time) \
+            .until(EC.element_to_be_clickable((By.CSS_SELECTOR, OK_button_selector)))
         self.driver.find_element_by_css_selector(OK_button_selector).click()
 
         # check for TR is removed
