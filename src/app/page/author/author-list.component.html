@@ -12,10 +12,10 @@
         <td>{{ author.author_id }}</td>
         <td>{{ author.name }}</td>
         <td class="uk-text-right">
-            <a class="uk-button uk-button-danger" (click)="remove(author.author_id)">
+            <a class="uk-button uk-button-danger remove-link" (click)="remove(author.author_id)">
                 <i class="uk-icon uk-icon-remove"></i>
             </a>
-            <a [routerLink]="getEditLink(author.author_id)" class="uk-button uk-button-primary">
+            <a [routerLink]="getEditLink(author.author_id)" class="uk-button uk-button-primary edit-link">
                 <i class="uk-icon uk-icon-edit"></i>
             </a>
         </td>
