@@ -43,4 +43,8 @@ export class AuthorListComponent implements OnInit {
     getEditLink(id: number): any[] {
         return [this.parentPath, 'form', id]
     }
+
+    remove(id: number): void {
+        console.log(`${id} removed`)
+    }
 }
