@@ -7,10 +7,10 @@ import {Statistics, StatisticsRepository} from "../../model/entity/statistics.mo
     templateUrl: 'home.component.html',
 })
 export class HomeComponent {
-    constructor(private statisticsRep: StatisticsRepository) {
+    constructor(private repo: StatisticsRepository) {
     }
 
     get statistics(): Statistics {
-        return this.statisticsRep.getStatistics()
+        return this.repo.getStatistics()
     }
 }

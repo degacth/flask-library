@@ -16,7 +16,7 @@ export class AuthorForm implements OnInit {
     id: number;
     parentPath: string;
 
-    constructor(private fb: FormBuilder, private route: ActivatedRoute, private rep: AuthorRepository,
+    constructor(private fb: FormBuilder, private route: ActivatedRoute, private repo: AuthorRepository,
                 private router: Router) {
     }
 
@@ -24,7 +24,7 @@ export class AuthorForm implements OnInit {
         this.route.params.subscribe(params => {
             this.id = params['id'];
             if (!this.id) return this.initEmptyAuthor();
-            this.rep.getAuthor(this.id).subscribe(this.setAuthor.bind(this));
+            this.repo.getAuthor(this.id).subscribe(this.setAuthor.bind(this));
         });
 
         this.parentPath = getNearestParentPath(this.route);
@@ -46,7 +46,7 @@ export class AuthorForm implements OnInit {
         if (this.form.invalid) return;
 
         _.extend(this.author, this.form.value);
-        this.rep.save(this.author).subscribe(author => this.router.navigate([
+        this.repo.save(this.author).subscribe(author => this.router.navigate([
             this.parentPath, 'list', 1
         ]));
     }

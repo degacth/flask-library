@@ -3,6 +3,8 @@ import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {IPaginator} from "../../model/paginator.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {getNearestParentPath} from "./utils";
+import {Modal} from "../../shared/service/modal.service";
+import * as _ from "lodash";
 
 @Component({
     selector: 'author',
@@ -12,27 +14,28 @@ import {getNearestParentPath} from "./utils";
 export class AuthorListComponent implements OnInit {
     parentPath: string;
 
-    constructor(private authorRep: AuthorRepository, private route: ActivatedRoute, private router: Router) {
+    constructor(private repo: AuthorRepository, private route: ActivatedRoute, private router: Router,
+                private modal: Modal) {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe((params: Params) => this.authorRep.loadAuthors(params['id']));
+        this.route.params.subscribe((params: Params) => this.repo.loadAuthors(params['id']));
         this.parentPath = getNearestParentPath(this.route)
     }
 
     get authors(): Author[] {
-        return this.authorRep.getAuthors()
+        return this.repo.getAuthors()
     }
 
     get paginatorResource(): IPaginator {
-        return this.authorRep.paginator
+        return this.repo.paginator
     }
 
     get pageInfo() {
         return {
-            'page': this.authorRep.paginator.getPage(),
-            'numPage': this.authorRep.paginator.getPage(),
-            'pages': this.authorRep.paginator.getTotalPages(),
+            'page': this.repo.paginator.getPage(),
+            'numPage': this.repo.paginator.getPage(),
+            'pages': this.repo.paginator.getTotalPages(),
         }
     }
 
@@ -45,6 +48,8 @@ export class AuthorListComponent implements OnInit {
     }
 
     remove(id: number): void {
-        console.log(`${id} removed`)
+        Modal.confirm(`Do you wonna remove author #${id}?`, () => this.repo.remove(id).subscribe(() => {
+            this.authors.splice(_.findIndex(this.authors, (a: Author) => a.author_id == id), 1);
+        }))
     }
 }

@@ -9,8 +9,8 @@ export interface IRestDataSource {
     get: <T>(url: (string | Object)[]) => Observable<T>
     put: <T>(url: string[], object: T) => Observable<T>
     post: <T>(url: string[], object: T) => Observable<T>
+    del: (url: string[]) => Observable<any>
     // patch: any
-    // del: any
 }
 
 export const RestDataSource = new InjectionToken('restdatasource');
@@ -35,6 +35,10 @@ export class RestlessDataSource implements IRestDataSource {
 
     post<T>(url: string[], body: T): Observable<T> {
         return this.sendRequest<T>(RequestMethod.Post, RestlessDataSource.getPath(url), body);
+    }
+
+    del(url: string[]): Observable<any> {
+        return this.sendRequest<any>(RequestMethod.Delete, RestlessDataSource.getPath(url));
     }
 
     private sendRequest<T>(verb: RequestMethod, url: string, body?: any): Observable<T> {
