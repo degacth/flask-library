@@ -49,7 +49,7 @@ export class AuthorListComponent implements OnInit {
 
     remove(id: number): void {
         Modal.confirm(`Do you wonna remove author #${id}?`, () => this.repo.remove(id).subscribe(() => {
-            this.authors.splice(_.findIndex(this.authors, (a: Author) => a.author_id == id), 1);
+            this.authors.splice(_.findIndex(this.authors, {author_id: id}), 1);
         }))
     }
 }
