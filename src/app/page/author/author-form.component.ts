@@ -30,6 +30,27 @@ export class AuthorForm implements OnInit {
         this.parentPath = getNearestParentPath(this.route);
     }
 
+    getInputClass(name: string): Object {
+        let input: AbstractControl = this.form.get(name);
+        return {
+            'uk-form-danger': input.dirty && input.status == 'INVALID',
+        }
+    }
+
+    getModeLabel(): string {
+        if (this.author.author_id) return 'edit';
+        return 'add'
+    }
+
+    onSubmit() {
+        if (this.form.invalid) return;
+
+        _.extend(this.author, this.form.value);
+        this.rep.save(this.author).subscribe(author => this.router.navigate([
+            this.parentPath, 'list', 1
+        ]));
+    }
+
     private initEmptyAuthor(): void {
         this.setAuthor(new Author);
         this.createForm();
@@ -44,21 +65,5 @@ export class AuthorForm implements OnInit {
     private setAuthor(author: Author) {
         this.author = author;
         this.createForm();
-    }
-
-    getInputClass(name: string): Object {
-        let input: AbstractControl = this.form.get(name);
-        return {
-            'uk-form-danger': input.dirty && input.status == 'INVALID',
-        }
-    }
-
-    onSubmit() {
-        if (this.form.invalid) return;
-
-        _.extend(this.author, this.form.value);
-        this.rep.save(this.author).subscribe(author => this.router.navigate([
-            this.parentPath, 'list', 1
-        ]));
     }
 }

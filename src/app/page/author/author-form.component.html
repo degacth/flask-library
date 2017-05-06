@@ -1,7 +1,7 @@
 <div *ngIf="author">
     <form class="uk-form uk-form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
         <fieldset>
-            <legend>Edit author:</legend>
+            <legend>{{ getModeLabel() | titlecase }} author:</legend>
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-it">Name</label>
 
