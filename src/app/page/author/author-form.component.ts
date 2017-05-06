@@ -23,10 +23,16 @@ export class AuthorForm implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.id = params['id'];
+            if (!this.id) return this.initEmptyAuthor();
             this.rep.getAuthor(this.id).subscribe(this.setAuthor.bind(this));
         });
 
         this.parentPath = getNearestParentPath(this.route);
+    }
+
+    private initEmptyAuthor(): void {
+        this.setAuthor(new Author);
+        this.createForm();
     }
 
     private createForm() {
@@ -51,7 +57,7 @@ export class AuthorForm implements OnInit {
         if (this.form.invalid) return;
 
         _.extend(this.author, this.form.value);
-        this.rep.update(this.author).subscribe(author => this.router.navigate([
+        this.rep.save(this.author).subscribe(author => this.router.navigate([
             this.parentPath, 'list', 1
         ]));
     }

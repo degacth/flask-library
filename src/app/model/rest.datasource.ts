@@ -7,8 +7,8 @@ import {Settings} from "../app.settings";
 
 export interface IRestDataSource {
     get: <T>(url: (string | Object)[]) => Observable<T>
-    // post: any
-    put: any
+    put: <T>(url: string[], object: T) => Observable<T>
+    post: <T>(url: string[], object: T) => Observable<T>
     // patch: any
     // del: any
 }
@@ -23,15 +23,19 @@ export class RestlessDataSource implements IRestDataSource {
         this.baseUrl = `${settings.HOSTNAME}/api`;
     }
 
-    get: <T>(url: (string | Object)[]) => Observable<T> =
-        (url: (string | Object)[]) => {
-            let urlPath: string = RestlessDataSource.getPath(url);
-            let urlQuery: string = RestlessDataSource.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
-            return this.sendRequest(RequestMethod.Get, `${urlPath}?${urlQuery}`);
-        };
+    get<T>(url: (string | Object)[]): Observable<T> {
+        let urlPath: string = RestlessDataSource.getPath(url);
+        let urlQuery: string = RestlessDataSource.makeQueryFromObject(_.find(url, item => typeof item === 'object'));
+        return this.sendRequest(RequestMethod.Get, `${urlPath}?${urlQuery}`);
+    };
 
-    put: <T>(url: string[], body: Object) => Observable<T> =
-        (url: string[], body: Object) => this.sendRequest(RequestMethod.Put, RestlessDataSource.getPath(url), body);
+    put<T>(url: string[], body: T): Observable<T> {
+        return this.sendRequest<T>(RequestMethod.Put, RestlessDataSource.getPath(url), body);
+    }
+
+    post<T>(url: string[], body: T): Observable<T> {
+        return this.sendRequest<T>(RequestMethod.Post, RestlessDataSource.getPath(url), body);
+    }
 
     private sendRequest<T>(verb: RequestMethod, url: string, body?: any): Observable<T> {
         let request = new Request({

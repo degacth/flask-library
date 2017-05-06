@@ -14,6 +14,7 @@ let routes = [
         children: [
             {path: 'list/:id', component: AuthorListComponent},
             {path: 'form/:id', component: AuthorForm},
+            {path: 'form', component: AuthorForm},
             {path: '**', redirectTo: 'list/1'},
         ]
     },
