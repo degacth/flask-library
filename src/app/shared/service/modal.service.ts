@@ -1,18 +1,22 @@
 import {Injectable} from "@angular/core";
 declare var UIkit: any;
 
-let modal = UIkit.modal;
-let options = {
-    center: true,
-};
-
 @Injectable()
 export class Modal {
+    private modal: any;
+    private options = {
+        center: true,
+    };
+
+    constructor() {
+        this.modal = UIkit.modal;
+    }
+
     alert(message: string) {
-        modal.alert(message, options);
+        this.modal.alert(message, this.options);
     }
 
     confirm(message: string, cb: () => void) {
-        modal.confirm(message, cb, options);
+        this.modal.confirm(message, cb, this.options);
     }
 }
