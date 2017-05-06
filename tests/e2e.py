@@ -62,6 +62,8 @@ class MainTestCase(BaseLiveTestCase):
 class AuthorTestCase(BaseLiveTestCase):
     authors_count = 30
     list_items = 10
+    name_author_control = '[formcontrolname=name]'
+    submit_button = 'button[type=submit]'
 
     def setUp(self):
         generate(self.authors_count, 0)
@@ -90,8 +92,25 @@ class AuthorTestCase(BaseLiveTestCase):
         first_author.find_element_by_css_selector('a').click()
 
         addition_text = 'test'
-        self.driver.find_element_by_css_selector('[formcontrolname=name]').send_keys(addition_text)
-        self.driver.find_element_by_css_selector('button[type=submit]').click()
+        self.driver.find_element_by_css_selector(self.name_author_control).send_keys(addition_text)
+        self.driver.find_element_by_css_selector(self.submit_button).click()
 
-        self.assertEqual(first_author_name + addition_text,
-                         self.driver.find_element_by_css_selector('author tbody tr:first-child td:nth-child(2)').text)
+        self.assertEqual(first_author_name + addition_text, self.get_first_author_name())
+
+    def test_add_author(self):
+        author_name = 'test author name'
+        self.driver.find_element_by_css_selector('#author-menu-add').click()
+        self.driver.find_element_by_css_selector(self.name_author_control).send_keys(author_name)
+        self.driver.find_element_by_css_selector(self.submit_button).click()
+
+        self.driver.find_element_by_css_selector('paginator li:last-child a').click()
+        self.assertEqual(author_name, self.get_last_author_name())
+
+    def get_first_author_name(self):
+        return self.get_nth_author_name('first-child')
+
+    def get_last_author_name(self):
+        return self.get_nth_author_name('last-child')
+
+    def get_nth_author_name(self, nth):
+        return self.driver.find_element_by_css_selector('author tbody tr:%s td:nth-child(2)' % nth).text
