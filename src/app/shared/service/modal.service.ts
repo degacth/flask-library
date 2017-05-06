@@ -8,11 +8,11 @@ let options = {
 
 @Injectable()
 export class Modal {
-    static alert(message: string) {
+    alert(message: string) {
         modal.alert(message, options);
     }
 
-    static confirm(message: string, cb: () => void) {
+    confirm(message: string, cb: () => void) {
         modal.confirm(message, cb, options);
     }
 }
