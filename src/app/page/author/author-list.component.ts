@@ -23,6 +23,7 @@ export class AuthorListComponent implements OnInit {
                 link: (author: Author) => [this.routeBuilder.prefix, 'form', `${author.author_id}`],
                 icon: 'edit',
                 color: Color.PRIMARY,
+                klass: 'edit-link',
             },
             {
                 click: (author: Author) => this.modal.confirm(`Do you wonna remove author #${author.author_id}?`,
@@ -31,6 +32,7 @@ export class AuthorListComponent implements OnInit {
                     })),
                 icon: 'remove',
                 color: Color.DANGER,
+                klass: 'remove-link',
             }
         ],
     };

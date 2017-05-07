@@ -117,7 +117,7 @@ class AuthorTestCase(BaseLiveTestCase):
         OK_button_selector = '.uk-modal-dialog .js-modal-confirm'
 
         id = get_first_author_id()
-        get_first_autor_row().find_element_by_css_selector('a.remove-link').click()
+        get_first_autor_row().find_element_by_css_selector('button.remove-link').click()
 
         # wait clickable OK
         WebDriverWait(self.driver, self.wait_time) \

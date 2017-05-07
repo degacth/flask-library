@@ -10,6 +10,7 @@ export enum Color {
 export interface IButton {
     icon?: string,
     text?: string,
+    klass?: string,
     click?: (obj: any) => void,
     link?: (obj: any) => string[],
     color?: Color,
@@ -27,6 +28,7 @@ export class ButtonsComponent {
     getButtonClass(config: IButton): string {
         let klass = ['uk-button'];
         if (_.isNumber(config.color)) klass.push(`uk-button-${Color[config.color].toLowerCase()}`);
+        if (config.klass) klass.push(config.klass);
         return klass.join(' ');
     }
 
