@@ -5,6 +5,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Modal} from "../../shared/service/modal.service";
 import * as _ from "lodash";
 import {RouteBuilder} from "../../shared/service/route-builder.service";
+import {ICollectionList} from "../../shared/component/list/collection-list.component";
 
 @Component({
     selector: 'author',
@@ -12,6 +13,12 @@ import {RouteBuilder} from "../../shared/service/route-builder.service";
     templateUrl: 'author-list.component.html',
 })
 export class AuthorListComponent implements OnInit {
+    collectionList: ICollectionList = {
+        getCollection: () => this.repo.getAuthors(),
+        getFields: () => ['author_id', 'name'],
+        getLabel: () => 'authors'
+    };
+
     constructor(private repo: AuthorRepository, private route: ActivatedRoute, private router: Router,
                 private modal: Modal, private routeBuilder: RouteBuilder) {
     }

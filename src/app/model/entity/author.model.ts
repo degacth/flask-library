@@ -1,4 +1,4 @@
-import {Inject, Injectable, OnInit} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {IRestDataSource, RestDataSource} from "../rest.datasource";
 import {Paginator} from "../paginator.model";
 import {Observable} from "rxjs/Observable";
@@ -27,6 +27,7 @@ export class AuthorRepository {
             return this.source.put<Author>(['author', author.author_id.toString()], author);
         return this.source.post(['author'], author);
     };
+
     remove(id: number): Observable<Author> {
         return this.source.del(['author', id.toString()])
     }

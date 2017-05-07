@@ -1,0 +1,13 @@
+<table class="uk-table">
+    <caption>{{ collection.getLabel() | titlecase }}:</caption>
+    <thead>
+    <tr>
+        <th *ngFor="let fieldName of collection.getFields()">{{ fieldName }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let obj of collection.getCollection()">
+        <td *ngFor="let fieldName of collection.getFields()">{{ obj[fieldName] }}</td>
+    </tr>
+    </tbody>
+</table>

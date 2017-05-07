@@ -1,25 +1,2 @@
-<table class="uk-table" *ngIf="authors">
-    <caption>Authors:</caption>
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>author name</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let author of authors">
-        <td>{{ author.author_id }}</td>
-        <td>{{ author.name }}</td>
-        <td class="uk-text-right">
-            <a class="uk-button uk-button-danger remove-link" (click)="remove(author.author_id)">
-                <i class="uk-icon uk-icon-remove"></i>
-            </a>
-            <a [routerLink]="getEditLink(author.author_id)" class="uk-button uk-button-primary edit-link">
-                <i class="uk-icon uk-icon-edit"></i>
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<collection-list *ngIf="authors" [collection]="collectionList"></collection-list>
 <paginator [resource]="paginatorResource" (onChangePage)="pageChanged($event)"></paginator>
