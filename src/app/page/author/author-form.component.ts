@@ -3,7 +3,6 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
-import {getNearestParentPath} from "./utils";
 import {RouteBuilder} from "../../shared/service/route-builder.service";
 
 @Component({
