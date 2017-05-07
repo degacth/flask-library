@@ -6,6 +6,7 @@ import {Modal} from "../../shared/service/modal.service";
 import * as _ from "lodash";
 import {RouteBuilder} from "../../shared/service/route-builder.service";
 import {ICollectionList} from "../../shared/component/list/collection-list.component";
+import {Color} from "../../shared/component/buttons.component";
 
 @Component({
     selector: 'author',
@@ -16,7 +17,22 @@ export class AuthorListComponent implements OnInit {
     collectionList: ICollectionList = {
         getCollection: () => this.repo.getAuthors(),
         getFields: () => ['author_id', 'name'],
-        getLabel: () => 'authors'
+        getLabel: () => 'authors',
+        getButtons: () => [
+            {
+                link: (author: Author) => [this.routeBuilder.prefix, 'form', `${author.author_id}`],
+                icon: 'edit',
+                color: Color.PRIMARY,
+            },
+            {
+                click: (author: Author) => this.modal.confirm(`Do you wonna remove author #${author.author_id}?`,
+                    () => this.repo.remove(author.author_id).subscribe(() => {
+                        this.authors.splice(_.findIndex(this.authors, {author_id: author.author_id}), 1);
+                    })),
+                icon: 'remove',
+                color: Color.DANGER,
+            }
+        ],
     };
 
     constructor(private repo: AuthorRepository, private route: ActivatedRoute, private router: Router,
@@ -52,8 +68,6 @@ export class AuthorListComponent implements OnInit {
     }
 
     remove(id: number): void {
-        this.modal.confirm(`Do you wonna remove author #${id}?`, () => this.repo.remove(id).subscribe(() => {
-            this.authors.splice(_.findIndex(this.authors, {author_id: id}), 1);
-        }))
+
     }
 }

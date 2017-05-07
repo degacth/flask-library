@@ -1,9 +1,11 @@
 import {Component, Input, OnInit} from "@angular/core";
+import {IButton} from "../buttons.component";
 
 export interface ICollectionList {
     getCollection: () => Array<Object>;
     getFields: () => string[];
     getLabel: () => string;
+    getButtons?: () => IButton[];
 }
 
 @Component({

@@ -1,3 +1,17 @@
-buttons
-<ng-container *ngFor="let b of buttons">
-</ng-container>
+<div class="uk-button-group">
+    <ng-container *ngFor="let button of buttons">
+        <!-- is link -->
+        <ng-container *ngIf="button.link">
+            <a [routerLink]="button.link(object)" [ngClass]="getButtonClass(button)">
+                <i [ngClass]="getIconClass(button.icon)">{{ button.text }}</i>
+            </a>
+        </ng-container>
+
+        <!-- is button -->
+        <ng-container *ngIf="button.click">
+            <button (click)="button.click(object)" [ngClass]="getButtonClass(button)">
+                <i [ngClass]="getIconClass(button.icon)">{{ button.text }}</i>
+            </button>
+        </ng-container>
+    </ng-container>
+</div>

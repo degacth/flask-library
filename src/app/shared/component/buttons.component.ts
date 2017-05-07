@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
+import * as _ from "lodash";
 
-enum Color {
+export enum Color {
     PRIMARY,
     SUCCESS,
     DANGER,
@@ -10,7 +11,7 @@ export interface IButton {
     icon?: string,
     text?: string,
     click?: (obj: any) => void,
-    link?: string[],
+    link?: (obj: any) => string[],
     color?: Color,
 }
 
@@ -21,4 +22,17 @@ export interface IButton {
 })
 export class ButtonsComponent {
     @Input() buttons: IButton[];
+    @Input() object: {};
+
+    getButtonClass(config: IButton): string {
+        let klass = ['uk-button'];
+        if (_.isNumber(config.color)) klass.push(`uk-button-${Color[config.color].toLowerCase()}`);
+        return klass.join(' ');
+    }
+
+    getIconClass(icon: string): string {
+        let klass = '';
+        if (icon) klass += `uk-icon-${icon}`;
+        return klass;
+    }
 }
