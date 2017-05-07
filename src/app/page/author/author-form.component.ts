@@ -4,6 +4,7 @@ import {Author, AuthorRepository} from "../../model/entity/author.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
 import {getNearestParentPath} from "./utils";
+import {RouteBuilder} from "../../shared/service/route-builder.service";
 
 @Component({
     selector: 'author-form',
@@ -14,10 +15,9 @@ export class AuthorForm implements OnInit {
     form: FormGroup;
     author: Author;
     id: number;
-    parentPath: string;
 
     constructor(private fb: FormBuilder, private route: ActivatedRoute, private repo: AuthorRepository,
-                private router: Router) {
+                private router: Router, private routeBuilder: RouteBuilder) {
     }
 
     ngOnInit(): void {
@@ -26,8 +26,6 @@ export class AuthorForm implements OnInit {
             if (!this.id) return this.initEmptyAuthor();
             this.repo.getAuthor(this.id).subscribe(this.setAuthor.bind(this));
         });
-
-        this.parentPath = getNearestParentPath(this.route);
     }
 
     getInputClass(name: string): Object {
@@ -47,7 +45,7 @@ export class AuthorForm implements OnInit {
 
         _.extend(this.author, this.form.value);
         this.repo.save(this.author).subscribe(author => this.router.navigate([
-            this.parentPath, 'list', 1
+            this.routeBuilder.prefix, 'list', 1
         ]));
     }
 
