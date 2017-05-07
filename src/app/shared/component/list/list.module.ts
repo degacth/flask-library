@@ -1,12 +1,11 @@
 import {NgModule} from "@angular/core";
 import {CollectionListComponent} from "./collection-list.component";
-import {CommonModule} from "@angular/common";
+import {SharedModule} from "../../shared.module";
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [SharedModule],
     declarations: [CollectionListComponent],
     exports: [CollectionListComponent],
 })
 export class ListModule {
-
 }

@@ -2,12 +2,12 @@ import {NgModule} from "@angular/core";
 import {Paginator} from "./component/paginator.component";
 import {CommonModule} from "@angular/common";
 import {Modal} from "./service/modal.service";
-import {ListModule} from "./component/list/list.module";
+import {ButtonsComponent} from "./component/buttons.component";
 
 @NgModule({
-    imports: [CommonModule, ListModule],
-    declarations: [Paginator],
-    exports: [ListModule, Paginator],
+    imports: [CommonModule],
+    declarations: [Paginator, ButtonsComponent],
+    exports: [Paginator, ButtonsComponent, CommonModule],
     providers: [Modal],
 })
 export class SharedModule {

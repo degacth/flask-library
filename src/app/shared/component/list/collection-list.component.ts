@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 
 export interface ICollectionList {
     getCollection: () => Array<Object>;
@@ -11,7 +11,10 @@ export interface ICollectionList {
     moduleId: module.id,
     templateUrl: 'collection-list.component.html',
 })
-export class CollectionListComponent {
+export class CollectionListComponent implements OnInit {
     @Input('collection')
     collection: ICollectionList;
+
+    ngOnInit(): void {
+    }
 }

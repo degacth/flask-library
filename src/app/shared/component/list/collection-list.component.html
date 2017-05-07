@@ -3,11 +3,15 @@
     <thead>
     <tr>
         <th *ngFor="let fieldName of collection.getFields()">{{ fieldName }}</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let obj of collection.getCollection()">
         <td *ngFor="let fieldName of collection.getFields()">{{ obj[fieldName] }}</td>
+        <td>
+            <buttons [buttons]="[]"></buttons>
+        </td>
     </tr>
     </tbody>
 </table>
