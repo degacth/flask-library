@@ -104,7 +104,7 @@ class AuthorTestCase(BaseLiveTestCase):
 
     def test_add_author(self):
         author_name = 'test author name'
-        self.driver.find_element_by_css_selector('#author-menu-add').click()
+        self.driver.find_element_by_css_selector('.author-add-form').click()
         self.driver.find_element_by_css_selector(self.name_author_control).send_keys(author_name)
         self.driver.find_element_by_css_selector(self.submit_button).click()
 

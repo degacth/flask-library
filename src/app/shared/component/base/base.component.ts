@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, Inject} from "@angular/core";
 import {RouteBuilder} from "../../service/route-builder.service";
+import {BaseConfig, IBaseConfig, IMenuItem} from "./base-config.service";
+import * as _ from "lodash";
 
 @Component({
     selector: 'author-base',
@@ -9,10 +10,15 @@ import {RouteBuilder} from "../../service/route-builder.service";
     providers: [RouteBuilder],
 })
 export class BaseComponent {
-    constructor(private routeBuilder: RouteBuilder) {
-    }
+    menuItems: IMenuItem[];
+    menuLabel: string;
 
-    get urlPrefix(): string {
-        return this.routeBuilder.prefix;
+    constructor(private routeBuilder: RouteBuilder, @Inject(BaseConfig) private config: IBaseConfig) {
+        this.menuItems = _.map(config.getMenu(), (item: IMenuItem) => {
+            item.link = _.concat([this.routeBuilder.prefix], item.link);
+            return item
+        });
+
+        this.menuLabel = config.getMenuLabel()
     }
 }

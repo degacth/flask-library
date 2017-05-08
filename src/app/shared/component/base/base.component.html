@@ -5,11 +5,10 @@
 
     <div class="uk-width-1-4">
         <ul class="uk-nav uk-nav-side">
-            <li class="uk-nav-header">Author Menu</li>
+            <li class="uk-nav-header">{{ menuLabel }}</li>
             <li class="uk-nav-divider"></li>
-            <li routerLinkActive="uk-active"><a [routerLink]="[urlPrefix, 'list']">Author list</a></li>
-            <li routerLinkActive="uk-active">
-                <a [routerLink]="[urlPrefix, 'form']" id="author-menu-add">Add author</a>
+            <li routerLinkActive="uk-active" *ngFor="let item of menuItems">
+                <a [routerLink]="item.link" [ngClass]="item.klass">{{ item.text | uppercase }}</a>
             </li>
         </ul>
     </div>

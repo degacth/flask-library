@@ -21,8 +21,19 @@ const routes = [
     },
 ];
 
+const baseConfig = {
+    getMenu: () => [
+        {link: ['list'], text: 'author list', klass: 'author-list-menu'},
+        {link: ['form'], text: 'add author', klass: 'author-add-form'},
+    ],
+    getMenuLabel: () => 'author menu',
+};
+
 @NgModule({
-    imports: [ReactiveFormsModule, SharedModule, RouterModule.forChild(routes), ListModule, BaseModule],
+    imports: [
+        ReactiveFormsModule, ListModule, SharedModule, RouterModule.forChild(routes),
+        BaseModule.forChild(baseConfig),
+    ],
     declarations: [AuthorListComponent, AuthorForm],
 })
 export class AuthorModule {
