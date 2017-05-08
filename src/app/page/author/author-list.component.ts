@@ -68,8 +68,4 @@ export class AuthorListComponent implements OnInit {
     getEditLink(id: number): any[] {
         return [this.routeBuilder.prefix, 'form', id]
     }
-
-    remove(id: number): void {
-
-    }
 }
