@@ -8,6 +8,7 @@ import {PageNotFoundComponent} from "./page-not-found.component";
 export const APP_ROUTES: Routes = [
     {path: '', loadChildren: 'app/page/home/home.module#HomeModule'},
     {path: 'author', loadChildren: 'app/page/author/author.module#AuthorModule'},
+    {path: 'book', loadChildren: 'app/page/book/book.module#BookModule'},
     {path: '**', component: PageNotFoundComponent},
 ];
 
