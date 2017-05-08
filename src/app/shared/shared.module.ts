@@ -4,12 +4,11 @@ import {CommonModule} from "@angular/common";
 import {Modal} from "./service/modal.service";
 import {ButtonsComponent} from "./component/buttons.component";
 import {RouterModule} from "@angular/router";
-import {BaseComponent} from "./component/base/base.component";
 
 @NgModule({
     imports: [CommonModule, RouterModule],
-    declarations: [Paginator, ButtonsComponent, BaseComponent],
-    exports: [Paginator, ButtonsComponent, BaseComponent, CommonModule],
+    declarations: [Paginator, ButtonsComponent],
+    exports: [Paginator, ButtonsComponent, CommonModule, RouterModule],
     providers: [Modal],
 })
 export class SharedModule {
